@@ -1,4 +1,4 @@
-API_KEY = "sk-1906eb3c2517432eb2e98bb385598819"
+API_KEY = "xxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
 BASE_URL = "https://api.deepseek.com"
 
