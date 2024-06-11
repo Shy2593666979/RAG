@@ -22,6 +22,13 @@
 ```bash
 pip install -r requirements.txt
 ```
+
+检查是否包含Hugging Face上的Embedding 模型，如果有外网，直接可以
+```
+embedding = HuggingFaceEmbeddings(model_name="BAAI/bge-large-zh-v1.5")
+```
+没有的话，可以在[魔塔](https://www.modelscope.cn/home) 或者 [Hugging Face](https://huggingface.co/) 上离线下载，导入本地路径即可
+
 ## 使用说明
 配置你的 OpenAI API 密钥和 Milvus 服务信息，在 __init__.py 文件中设置相应的变量。
 
