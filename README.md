@@ -11,7 +11,8 @@
 - 支持多种文档格式的加载和处理，包括 PDF、Word 和 Excel。
 
 ## 项目流程
-![image](https://github.com/Shy2593666979/RAG/assets/105286202/254f18ba-0bda-4eeb-96fd-2546c47b0087)
+![image](https://github.com/Shy2593666979/RAG/assets/105286202/b4e71d9d-b1db-457a-a49c-762941ff435c)
+
 
 
 ## 安装
