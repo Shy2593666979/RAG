@@ -33,11 +33,12 @@ class MilvusOperator:
         schema = CollectionSchema(fields, self.collection_name)
 
         collection = self.get_Collection(schema=schema)
-        # 执行 flush 操作，确保数据持久化
-        collection.flush()
 
-        # 将资源释放掉
-        collection.release()
+        default_index = {"index_type": "HNSW", "metric_type": "COSINE",
+                         "params": {"M": 8, "efConstruction": 64}}
+        
+        _ = collection.create_index(field_name="vector", index_params=default_index)    
+        
 
     def drop_collection(self):  # 删除 Milvus的collection_name 集合
 
@@ -46,7 +47,7 @@ class MilvusOperator:
 
         # 删除集合
         collection.drop()
-
+        
     def insert_collection(self, text):
         if self.embedding is None:
             raise ValueError("The embedding model was not loaded")
@@ -61,11 +62,9 @@ class MilvusOperator:
             }
         ]
 
-        collection.insert(entities)
-
-        collection.flush()
-
-        collection.release()
+        ids = collection.insert(entities)
+        collection.load()
+        print(f"Data inserted into Milvus successfully. ID：{ids.primary_keys}")
 
     def get_Collection(self, schema: Optional[CollectionSchema] = None):
         if schema is None:
@@ -94,7 +93,7 @@ class MilvusOperator:
 
         query_embedding = self.embedding.embed_documents([query])[0]
 
-        search_params = {"metric_type": "COSINE", "params": {"nprobe": 10}}
+        search_params = {"metric_type": "COSINE", "params": {"M": 8, "efConstruction": 64}}
 
         results = collection.search(
             data=[query_embedding],  # 查询向量
