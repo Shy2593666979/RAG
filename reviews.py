@@ -22,8 +22,10 @@ answer_list = df['answer'].tolist()
 
 manager_milvus = MilvusOperator()
 
+# 将Word 文档中的数据加载到Milvus向量库中
 Load_Word_Milvus(manager_milvus, './test.docx')
 
+# 构建LLM
 model = ChatOpenAI(base_url='', api_key='', model='')
 
 
@@ -57,7 +59,8 @@ data = {
 }
 
 dataset = Dataset.from_dict(data)
- 
+
+# 开始评测
 result = evaluate(
     dataset = dataset, 
     metrics=[
